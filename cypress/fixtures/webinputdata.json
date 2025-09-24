@@ -1,0 +1,18 @@
+{
+  "positive":[
+    {
+      "number": "2353",
+      "text": "Hello123",
+      "password": "Test@1234",
+      "date": "1990-05-15"
+    }
+  ],
+  "negative":[
+    {
+      "number": "-456",
+      "text": "Test!@#",
+      "password": "pass",
+      "date": "2025-01-01"
+    }
+  ]
+}
