@@ -1,0 +1,27 @@
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Cypress
+cypress/screenshots/
+cypress/videos/
+cypress/downloads/
+.cache/
+
+# Reports
+mochawesome-report/
+mochawesome.json
+allure-results/
+allure-report/
+reports/
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDEs
+.idea/
+.vscode/
