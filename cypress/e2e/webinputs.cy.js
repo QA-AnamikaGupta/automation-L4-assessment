@@ -1,13 +1,11 @@
-import { faker, fi, th } from '@faker-js/faker';
 import WebInputPage from '../pages/webInputPage';
 import HomePage from '../pages/homePage';
+import WebInputData from '../utils/webInputData';
 
 describe('Verify the Web input page cases', () => {
   const baseUrl = Cypress.env('baseUrl') || Cypress.config('baseUrl');// Declare and assign outside
-  const positiveNumberData = faker.number.int({ min: 1000, max: 9999 });
-  const firstName = faker.person.firstName();
-  const password = faker.internet.password();
-  const date = faker.date.birthdate({ min: 18, max: 65, mode: 'age' });
+  //genrate the faker data
+  const fakerData = WebInputData.fakerData();
 
   beforeEach(() => {
     //Laod fixture data
@@ -21,6 +19,7 @@ describe('Verify the Web input page cases', () => {
       // Prevent Cypress from failing the test on uncaught exceptions
       return false;
     });
+    cy.clearAllCookies();
     cy.url().should('eq', baseUrl + 'inputs');
 
   });
@@ -33,16 +32,16 @@ describe('Verify the Web input page cases', () => {
   it('Validate form field interactions with vaild data with faker data', () => {
 
     //webinputs page, input field interactions
-    WebInputPage.InputNumberTextBox(positiveNumberData);
-    WebInputPage.InputTextTextBox(firstName);
-    WebInputPage.InputPasswordTextBox(password);
-    WebInputPage.InputDateTextBox(date.toISOString().split('T')[0]);
+    WebInputPage.InputNumberTextBox(fakerData.positiveNumberData);
+    WebInputPage.InputTextTextBox(fakerData.firstName);
+    WebInputPage.InputPasswordTextBox(fakerData.password);
+    WebInputPage.InputDateTextBox(fakerData.date.toISOString().split('T')[0]);
     WebInputPage.ClickOnDisplayInputsButton();
     // Assert that the output fields are empty or contain appropriate error messages
-    WebInputPage.AssertOutputNumber(positiveNumberData);
-    WebInputPage.AssertOutputText(firstName);
-    WebInputPage.AssertOutputPassword(password);
-    WebInputPage.AssertOutputDate(date.toISOString().split('T')[0]);
+    WebInputPage.AssertOutputNumber(fakerData.positiveNumberData);
+    WebInputPage.AssertOutputText(fakerData.firstName);
+    WebInputPage.AssertOutputPassword(fakerData.password);
+    WebInputPage.AssertOutputDate(fakerData.date.toISOString().split('T')[0]);
     // Clear the input fields for the next iteration
     WebInputPage.ClickOnClearInputsButton();
   });
