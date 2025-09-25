@@ -1,0 +1,14 @@
+{
+    "positive":[
+        {
+            "username": "practice",
+            "password": "SuperSecretPassword!"
+        }
+    ],
+    "negative":[
+        {
+            "username": "wrongUser",
+            "password": "wrongPass"
+        }
+    ]
+}

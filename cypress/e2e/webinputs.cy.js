@@ -2,7 +2,7 @@ import { faker, fi, th } from '@faker-js/faker';
 import WebInputPage from '../pages/webInputPage';
 import HomePage from '../pages/homePage';
 
-describe('template spec', () => {
+describe('Verify the Web input page cases', () => {
   const baseUrl = Cypress.env('baseUrl') || Cypress.config('baseUrl');// Declare and assign outside
   const positiveNumberData = faker.number.int({ min: 1000, max: 9999 });
   const firstName = faker.person.firstName();
@@ -21,6 +21,7 @@ describe('template spec', () => {
       // Prevent Cypress from failing the test on uncaught exceptions
       return false;
     });
+    cy.url().should('eq', baseUrl + 'inputs');
 
   });
 
