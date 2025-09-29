@@ -4,11 +4,12 @@ class HomePage{
         testLoginPageTryItOutButton: () => cy.get('.card-footer a[href="/login"]'),
         testRegisterPageTryItOutButton: () => cy.get('.card-footer a[href="/register"]'),
         dynamicTableTryItOutButton: () => cy.get('.card-footer a[href="/dynamic-table"]'),
-        dyanamicPaginationTryItOutButton: () => cy.get('.card-footer a[href="/dynamic-table-pagination"]'),
+        dyanamicPaginationTryItOutButton: () => cy.get('.card-footer a[href="/dynamic-pagination-table"]'),
         dragAndDropTryItOutButton: () => cy.get('.card-footer a[href="/drag-and-drop"]'),
         addRemoveElementsTryItOutButton: () => cy.get('.card-footer a[href="/add-remove-elements"]'),
         notificationMessageTryItOutButton: () => cy.get('.card-footer a[href="/notification-message"]'),
         cypressSpiesStubAndClocksTryItOutButton: () => cy.get('.card-footer a[href="/cypress-spies-stubs-clocks"]'),
+        dyanamicPaginationText:() => cy.contains('Dynamic Pagination Table'),
 
     }
     ClickWwebInputTryItOutButton(){
@@ -19,6 +20,7 @@ class HomePage{
     }
     ClickTestLoginPageTryItOutButton(){
         this.elements.testLoginPageTryItOutButton()
+        .scrollIntoView()
         .should('be.visible')
         .and('have.text', 'Try it out')
         .click();
@@ -37,8 +39,8 @@ class HomePage{
     }
     ClickDyanamicPaginationTryItOutButton(){
         this.elements.dyanamicPaginationTryItOutButton()
-        .should('be.visible')
-        .and('have.text', 'Try it out')
+        .scrollIntoView()
+        .should('have.text', 'Try it out')
         .click();
     }
     ClickDragAndDropTryItOutButton(){
@@ -64,6 +66,16 @@ class HomePage{
         .should('be.visible')
         .and('have.text', 'Try it out')
         .click();
+    }
+    ScrollintoVIewDynamicPaginationText(){
+        this.elements.dyanamicPaginationText()
+        .scrollIntoView()
+        .should('be.visible');
+    }
+    ScrollintoViewLoginPage(){
+        this.elements.testLoginPageTryItOutButton()
+        .scrollIntoView()
+        .should('be.visible')
     }
 }
 module.exports = new HomePage();
