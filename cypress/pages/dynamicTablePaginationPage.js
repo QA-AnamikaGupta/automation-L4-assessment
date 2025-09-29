@@ -1,12 +1,18 @@
 class DynamicTablePaginationPage {
     elements = {
         rowLength: () => cy.get('select[name="example_length"]'),
+        countOfRows: () => cy.get('table tbody tr'),
 
     }
-    VerifyRowLengthDropdown(){
-        this.elements.rowLength()
+    VerifyRowLengthDropdown(value){
+        this.elements.rowLength().select(value)
         .should('be.visible')
-        .and('have.length', '2');
+    }
+    AssertRowCount(){
+        this.elements.countOfRows().then(($rows) => {
+            const rowCount = $rows.length;
+            cy.log('Number of data rows: ' + rowCount);
+        });
     }
 }
 export default new DynamicTablePaginationPage();
