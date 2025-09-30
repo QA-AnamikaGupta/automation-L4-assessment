@@ -1,0 +1,22 @@
+import HomePage from "../pages/homePage";
+
+describe('Verify Notification Message cases', () => {
+    const baseUrl = Cypress.env('baseUrl') || Cypress.config('baseUrl');
+    beforeEach(() => {
+
+        //Load fixture data
+        cy.fixture('logindata').as('data');
+        // Visit the base URL
+        cy.visit('/');
+        //Click on webinputs try it out button from homepage
+        HomePage.ClickNotificationMessageTryItOutButton();
+        Cypress.on('uncaught:exception', (err, runnable) => {
+            // Prevent Cypress from failing the test on uncaught exceptions
+            return false;
+        });
+        cy.url().should('eq', baseUrl + 'notification-message-rendered');
+    });
+    it('Verify Notification case', () => {
+        cy.url().should('eq', baseUrl + 'notification-message-rendered');
+    })
+});

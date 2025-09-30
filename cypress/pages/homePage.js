@@ -10,6 +10,7 @@ class HomePage{
         notificationMessageTryItOutButton: () => cy.get('.card-footer a[href="/notification-message"]'),
         cypressSpiesStubAndClocksTryItOutButton: () => cy.get('.card-footer a[href="/cypress-spies-stubs-clocks"]'),
         dyanamicPaginationText:() => cy.contains('Dynamic Pagination Table'),
+        apiTestingTryItOutButton: () => cy.get('.card-footer a[href="/notes/api/api-docs/"]'),
 
     }
     ClickWwebInputTryItOutButton(){
@@ -76,6 +77,13 @@ class HomePage{
         this.elements.testLoginPageTryItOutButton()
         .scrollIntoView()
         .should('be.visible')
+    }
+    ClickApiTestingTryItOutButton(){
+        this.elements.apiTestingTryItOutButton()
+        .scrollIntoView()
+        .should('be.visible')
+        .and('have.text', 'Try it out')
+        .click();
     }
 }
 module.exports = new HomePage();
