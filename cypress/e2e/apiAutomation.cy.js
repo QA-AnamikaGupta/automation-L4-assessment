@@ -1,22 +1,44 @@
-import HomePage from "../pages/homePage";
-
 describe('Verify Api Automation cases', () => {
-    const baseUrl = Cypress.env('baseUrl') || Cypress.config('baseUrl');
-    beforeEach(() => {
+       let token;
+  beforeEach(() => {
+    // return ensures Cypress waits for loginApi to finish
+    return cy.loginApi()
+      .then((t) => {
+        token = t;
+        Cypress.on('uncaught:exception', () => false);
+      });
+  });
 
-        //Load fixture data
-        cy.fixture('logindata').as('data');
-        // Visit the base URL
-        cy.visit('/');
-        //Click on webinputs try it out button from homepage
-        HomePage.ClickApiTestingTryItOutButton();
-        Cypress.on('uncaught:exception', (err, runnable) => {
-            // Prevent Cypress from failing the test on uncaught exceptions
-            return false;
-        });
-        cy.url().should('eq', baseUrl + '/notes/api/api-docs/');
+  it('verify the get api and retrieve all notes', () => {
+    const apiBaseUrl = Cypress.env('apiBaseUrl') || Cypress.config('apiBaseUrl');
+    cy.request({
+      method: 'GET',
+      url: `${apiBaseUrl}/notes`,
+      headers: {
+       'x-auth-token': token,
+        failOnStatusCode: false
+      }
+    }).then((response) => {
+      expect(response.status).to.eq(200);
+      expect(response.body).to.have.property('data');
+      expect(response.body.data).to.be.an('array');
     });
-    it('Verify Api Automation case', () => {
-        cy.url().should('eq', baseUrl + '/notes/api/api-docs/');
-    })
+  });
+
+  it('Verify the retieve single note api', () => {
+    const apiBaseUrl = Cypress.env('apiBaseUrl') || Cypress.config('apiBaseUrl');
+    const noteId = '64298e2b6747aa02118d3c23'; // replace with a valid note ID
+
+    cy.request({
+      method: 'GET',
+      url: `${apiBaseUrl}/notes/${noteId}`,
+      headers: {
+        'x-auth-token': token,
+      },
+    }).then((response) => {
+      expect(response.status).to.eq(200);
+      expect(response.body).to.have.property('data');
+      expect(response.body.data).to.have.property('_id', noteId);
+    });
+  })
 });

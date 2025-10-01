@@ -7,6 +7,7 @@ module.exports = defineConfig({
     supportFile: 'cypress/support/e2e.js',
 
     baseUrl: 'https://practice.expandtesting.com/',
+    apiBaseUrl: 'https://practice.expandtesting.com/notes/api',
     watchForFileChanges: false,
 
     setupNodeEvents(on, config) {
