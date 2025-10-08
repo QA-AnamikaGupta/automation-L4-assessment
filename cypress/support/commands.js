@@ -1,42 +1,39 @@
 // cypress/support/commands.js
 
 Cypress.Commands.add('loginApi', () => {
-  const apiBaseUrl = Cypress.env('apiBaseUrl') || Cypress.config('apiBaseUrl');
+  // 1 Get the API base URL from cypress.config.js (under env)
+  const apiBaseUrl = Cypress.env('apiBaseUrl');
 
-  // return the Cypress chain and yield the token
+  // 2️ Read credentials from fixture file
   return cy.fixture('apicredentials').then((data) => {
-    const payload = { email: data.email || data.username, password: data.password };
+    const payload = {
+      email: data.email || data.username,
+      password: data.password
+    };
 
+    // 3 Send POST request to the login endpoint
     return cy.request({
       method: 'POST',
       url: `${apiBaseUrl}/users/login`,
       body: payload,
-      failOnStatusCode: false
+      failOnStatusCode: false // so Cypress won’t stop test automatically on 4xx/5xx
     }).then((resp) => {
-      // token may be in resp.body.token or resp.body.data.token
-      const token = resp.body && (resp.body.token || (resp.body.data && resp.body.data.token));
+      const token = resp.body?.token || resp.body?.data?.token;
 
+      // 4️ Check if login was successful
       if (resp.status >= 200 && resp.status < 400 && token) {
-        // store in Cypress.env for convenience and also yield it
+        // store token in Cypress.env for later use
         Cypress.env('token', token);
 
-        // optionally store user info
-        const userData = resp.body && (resp.body.data || resp.body.user || null);
-        if (userData) {
-          Cypress.env('user', {
-            id: userData.id || userData._id,
-            name: userData.name,
-            email: userData.email
-          });
-        }
-
-        // yield the token to callers
+        // return token so you can use it in tests
         return cy.wrap(token);
       }
 
-      throw new Error(
-        `Login failed with status ${resp.status}.\nRequest payload: ${JSON.stringify(payload)}\nResponse body: ${JSON.stringify(resp.body)}`
-      );
+      // 5️ If login failed, show clear error message
+      throw new Error(`Login failed! 
+        Status: ${resp.status}
+        Response: ${JSON.stringify(resp.body)}
+      `);
     });
   });
 });
