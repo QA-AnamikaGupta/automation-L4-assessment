@@ -58,7 +58,7 @@ automation-L4-assessment/
 
 ## ⚙️ Setup Instructions
 
-### 1️⃣ Clone the Repository
+### 1. Clone the Repository
 ```bash
 git clone https://github.com/QA-AnamikaGupta/automation-L4-assessment.git
 cd automation-L4-assessment
@@ -74,22 +74,29 @@ npm install
 ## 4. Run tests locally
 
 ### UI tests (headed mode):
+```bash
 npx cypress open
+```
 
 ### Headless mode (CI-friendly):
+```bash
 npx cypress run
+```
 
 ## 📊 Test Reports (Mochawesome)
-
-After running the tests, Mochawesome generates detailed HTML reports.
+- After running the tests, Mochawesome generates detailed HTML reports.
 
 ### Default report path:
+```bash
 cypress/reports/mochawesome-report.html
+```
 
 ### To open the report manually:
+```bash
 npx mochawesome-merge cypress/reports/mochawesome-report/*.json > cypress/reports/mochawesome-report/output.json
 npx marge cypress/reports/mochawesome-report/output.json --reportDir cypress/reports/html --inline
 open cypress/reports/html/output.html
+```
 
 ## 🖼️ Sample Report Screenshot:
 ![alt text](Untitled.png)
@@ -119,20 +126,20 @@ open cypress/reports/html/output.html
 
 ## 🧱 Design & Architecture
 **POM (Page Object Model):**
-Each page action and locator is isolated in its own class under pageObjects/.
+- Each page action and locator is isolated in its own class under pageObjects/.
 **Data-Driven Tests:**
-Uses Faker for generating random, unique data (usernames, note titles, etc.).
+- Uses Faker for generating random, unique data (usernames, note titles, etc.).
 **Reusable Commands:**
-Common flows like login, token fetch, and note creation are abstracted in commands.js.
+- Common flows like login, token fetch, and note creation are abstracted in commands.js.
 **Reporting:**
-Mochawesome provides easy-to-share HTML test summaries.
+- Mochawesome provides easy-to-share HTML test summaries.
 
 ## 🧠 Challenges & Learnings
-Handling non-deterministic notification messages using retry and conditional assertions.
-Managing dynamic test data for registration and API CRUD flows.
-Designing reusable POM structure and command utilities for maintainability.
-Ensuring stable selectors across dynamic UI elements.
-Integrating Mochawesome and schema validation for professional-grade test outputs.
+- Handling non-deterministic notification messages using retry and conditional assertions.
+- Managing dynamic test data for registration and API CRUD flows.
+- Designing reusable POM structure and command utilities for maintainability.
+- Ensuring stable selectors across dynamic UI elements.
+- Integrating Mochawesome and schema validation for professional-grade test outputs.
 
 ## 👩‍💻 Author
 Anamika Gupta
