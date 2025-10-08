@@ -9,11 +9,18 @@ module.exports = defineConfig({
     watchForFileChanges: false,
 
     env: {
-      apiBaseUrl: 'https://practice.expandtesting.com/notes/api' 
+      apiBaseUrl: 'https://practice.expandtesting.com/notes/api'
     },
     setupNodeEvents(on, config) {
 
       return config;
     },
+    reporter: 'mochawesome',
+    reporterOptions: {
+      reportDir: 'cypress/reports/mochawesome-report',
+      overwrite: false,
+      html: false,
+      json: true,
+    }
   },
 });
