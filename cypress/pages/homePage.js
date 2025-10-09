@@ -8,7 +8,7 @@ class HomePage{
         dragAndDropTryItOutButton: () => cy.get('.card-footer a[href="/drag-and-drop"]'),
         addRemoveElementsTryItOutButton: () => cy.get('.card-footer a[href="/add-remove-elements"]'),
         notificationMessageTryItOutButton: () => cy.get('.card-footer a[href="/notification-message"]'),
-        cypressSpiesStubAndClocksTryItOutButton: () => cy.get('.card-footer a[href="/cypress-spies-stubs-clocks"]'),
+        cypressSpiesStubAndClocksTryItOutButton: () => cy.get('.card-footer a[href="/spies-stubs-clocks"]'),
         dyanamicPaginationText:() => cy.contains('Dynamic Pagination Table'),
         apiTestingTryItOutButton: () => cy.get('.card-footer a[href="/notes/api/api-docs/"]'),
 
