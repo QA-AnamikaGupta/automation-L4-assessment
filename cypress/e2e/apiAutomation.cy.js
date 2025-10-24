@@ -8,6 +8,8 @@ describe('API Automation Tests', () => {
       const bookDetails = generateBookDetails();
       Cypress.env('bookTitle', bookDetails.title);
       Cypress.env('bookDescription', bookDetails.description);
+      Cypress.env('CYPRESS_API_USERNAME');
+      Cypress.env('CYPRESS_API_PASSWORD');
   });
 
   beforeEach(() => {

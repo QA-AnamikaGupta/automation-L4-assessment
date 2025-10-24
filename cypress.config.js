@@ -5,11 +5,13 @@ module.exports = defineConfig({
   e2e: {
     // default support file path (where you should put Cypress.on('uncaught:exception', ...))
     supportFile: 'cypress/support/e2e.js',
-    baseUrl: 'https://practice.expandtesting.com/',
+    baseUrl: "https://practice.expandtesting.com/",
+    apiBaseUrl: 'https://practice.expandtesting.com/notes/api',
     watchForFileChanges: false,
 
     env: {
-      apiBaseUrl: 'https://practice.expandtesting.com/notes/api'
+      CYPRESS_API_USERNAME: process.env.CYPRESS_API_USERNAME,
+      CYPRESS_API_PASSWORD: process.env.CYPRESS_API_PASSWORD,
     },
     setupNodeEvents(on, config) {
 

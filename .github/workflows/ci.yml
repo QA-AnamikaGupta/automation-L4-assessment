@@ -1,0 +1,57 @@
+name: CI - Cypress
+
+on: [push]
+
+jobs:
+  cypress-run:
+    runs-on: ubuntu-latest        
+    env:
+      DEV_URL: ${{ secrets.DEV_URL }}
+      DEV_API_URL: ${{ secrets.DEV_API_URL }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run E2E Cypress Test
+        run: npx cypress run
+        continue-on-error: true
+
+      - name: Upload Mochawesome Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: Mochawesome Report
+          path: cypress/reports/
+
+      - name: Upload Screenshots
+        if: always()
+        uses: actions/upload-artifact@v4         
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots/
+
+      - name: Upload Cypress Videos
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-videos
+          path: cypress/videos/
+
+      - name: Add Cypress Run Summary
+        if: always()
+        shell: bash
+        run: |
+          echo "## Cypress Test Run Finished" >> $GITHUB_STEP_SUMMARY
+          echo "You can download the full Mochawesome HTML report from the workflow artifacts above." >> $GITHUB_STEP_SUMMARY
+          if [ -d cypress/reports ]; then
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "Artifacts uploaded from cypress/reports." >> $GITHUB_STEP_SUMMARY
+          fi
