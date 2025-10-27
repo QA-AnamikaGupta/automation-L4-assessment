@@ -4,16 +4,22 @@ class DragAndDropPage {
     elements = {
         columnA: () => cy.get('#column-a'),
         columnB: () => cy.get('#column-b'),
+        assertColumnA: () => cy.get('#column-b header'),
+        assertColumnB: () => cy.get('#column-a header'),
     }
 
-    columnA() {
-        this.elements.columnA().trigger('mousedown', { which: 1 });
-        this.elements.columnB().trigger('mousemove').trigger('mouseup', { force: true });
+    ColumnA() {
+        this.elements.columnA().drag('#column-b');
+    }
+    AssertColumnA() {
+        this.elements.assertColumnA().should('have.text', 'A');
+    }
+    ColumnB() {
+        this.elements.columnB().drag('#column-a');
+    }
+    AssertColumnB() {
+        this.elements.assertColumnB().should('have.text', 'B');
     }
 
-    columnB() {
-        this.elements.columnB().trigger('mousedown', { which: 1 });
-        this.elements.columnA().trigger('mousemove').trigger('mouseup', { force: true });
-    }
 }
 export default new DragAndDropPage();

@@ -18,15 +18,17 @@ describe('Verify dynamic table cases', () => {
         cy.url().should('eq', baseUrl + 'drag-and-drop');
     });
 
-    it('Verify drag and drop functionality', () => {
+    it('Verify drag and drop from column A to column B', () => {
         // Add your test steps here
-        DragAndDropPage.columnA();
-        cy.wait(7000);
+        DragAndDropPage.ColumnA();
+        DragAndDropPage.AssertColumnB();
+        DragAndDropPage.AssertColumnA();
 
     });
 
-    it('Verify by navigating through multiple pages.', () => {
-        DragAndDropPage.columnB();
-        cy.wait(7000);
+    it('Verify drag and drop from column B to column A', () => {
+        DragAndDropPage.ColumnB();
+        DragAndDropPage.AssertColumnA();
+        DragAndDropPage.AssertColumnB();
     })
 });
