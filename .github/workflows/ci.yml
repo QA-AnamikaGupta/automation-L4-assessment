@@ -26,7 +26,7 @@ jobs:
           node-version: 18
           cache: 'npm' # ✅ speeds up installs
 
-      - name: Clear Node loader flags (fix tsx --loader error) #update this to address issue of tsx
+      - name: Clear Node loader flags (fix tsx --loader error)
         run: echo "NODE_OPTIONS=" >> $GITHUB_ENV
 
       - name: Install dependencies
@@ -36,7 +36,7 @@ jobs:
         run: npx cypress info
 
       - name: Run E2E Cypress Tests
-        run: npx cypress run
+        run: NODE_OPTIONS='' npx cypress run
         # remove continue-on-error unless you want green builds on failures
 
       # === Mochawesome (optional pretty HTML) ===
