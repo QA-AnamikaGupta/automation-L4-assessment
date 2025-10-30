@@ -2,19 +2,16 @@
 
 Cypress.Commands.add('loginApi', () => {
   // 1 Get the API base URL from cypress.config.js (under env)
-  const apiBaseUrl = Cypress.env('apiBaseUrl');
-  
+  const apiBaseUrl = Cypress.env('TEST_API_URL');
+  const email = Cypress.env('API_USERNAME');     // this is your email
+  const password = Cypress.env('API_PASSWORD');
 
-  // // 2️ Read credentials from fixture file
-  // return cy.fixture('apicredentials').then((data) => {
-  //   const payload = {
-  //     email: data.email || data.username,
-  //     password: data.password
-  //   };
-  const payload = {
-    username: Cypress.env('CYPRESS_API_USERNAME'),
-    password: Cypress.env('CYPRESS_API_PASSWORD')
-  };
+  // Guards + clean URL
+  expect(apiBaseUrl, 'TEST_API_URL').to.be.a('string').and.match(/^https?:\/\//);
+  expect(email, 'API_USERNAME (email)').to.be.a('string').and.not.be.empty;
+  expect(password, 'API_PASSWORD').to.be.a('string').and.not.be.empty;
+  
+  const payload = { email, password };
 
 
   // 3 Send POST request to the login endpoint

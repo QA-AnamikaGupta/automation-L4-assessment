@@ -1,15 +1,21 @@
 name: CI - Cypress
 
-on: [push]
+on:
+  push:
+    branches: [ main ]
+  # Optional:
+  # pull_request:
+  #   branches: [ main ]
 
 jobs:
   cypress-run:
-    runs-on: ubuntu-latest        
+    runs-on: ubuntu-latest
     env:
-      TEST_BASE_URL: ${{ secrets.TEST_BASE_URL }}
-      TEST_API_URL: ${{ secrets.TEST_API_URL }}
-      CYPRESS_API_USERNAME: ${{secrets.CYPRESS_API_USERNAME}}
-      CYPRESS_API_PASSWORD: ${{secrets.CYPRESS_API_PASSWORD}}
+      # Map GitHub Secrets -> CYPRESS_* envs for Cypress
+      CYPRESS_TEST_BASE_URL: ${{ secrets.TEST_BASE_URL }}
+      CYPRESS_TEST_API_URL: ${{ secrets.TEST_API_URL }}
+      CYPRESS_API_USERNAME: ${{ secrets.CYPRESS_API_USERNAME }}
+      CYPRESS_API_PASSWORD: ${{ secrets.CYPRESS_API_PASSWORD }}
 
     steps:
       - uses: actions/checkout@v4
@@ -18,24 +24,40 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 18
+          cache: 'npm' # ✅ speeds up installs
 
       - name: Install dependencies
         run: npm ci
 
-      - name: Run E2E Cypress Test
-        run: npx cypress run
-        continue-on-error: true
+      - name: Print Cypress env (safe)
+        run: npx cypress info
 
-      - name: Upload Mochawesome Report
+      - name: Run E2E Cypress Tests
+        run: npx cypress run
+        # remove continue-on-error unless you want green builds on failures
+
+      # === Mochawesome (optional pretty HTML) ===
+      # Only needed if you want an HTML report artifact
+      - name: Merge Mochawesome JSON
+        if: always()
+        run: npx mochawesome-merge cypress/reports/mochawesome-report/*.json -o cypress/reports/mochawesome.json
+
+      - name: Generate Mochawesome HTML
+        if: always()
+        run: npx marge cypress/reports/mochawesome.json -f index.html -o cypress/reports/html
+
+      - name: Upload Mochawesome (JSON & HTML)
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: Mochawesome Report
-          path: cypress/reports/
+          name: mochawesome-report
+          path: |
+            cypress/reports/
+            !cypress/reports/mochawesome-report/*.png
 
       - name: Upload Screenshots
         if: always()
-        uses: actions/upload-artifact@v4         
+        uses: actions/upload-artifact@v4
         with:
           name: cypress-screenshots
           path: cypress/screenshots/
@@ -52,8 +74,5 @@ jobs:
         shell: bash
         run: |
           echo "## Cypress Test Run Finished" >> $GITHUB_STEP_SUMMARY
-          echo "You can download the full Mochawesome HTML report from the workflow artifacts above." >> $GITHUB_STEP_SUMMARY
-          if [ -d cypress/reports ]; then
-            echo "" >> $GITHUB_STEP_SUMMARY
-            echo "Artifacts uploaded from cypress/reports." >> $GITHUB_STEP_SUMMARY
-          fi
+          echo "- baseUrl: $CYPRESS_TEST_BASE_URL" >> $GITHUB_STEP_SUMMARY
+          echo "Mochawesome artifacts uploaded above." >> $GITHUB_STEP_SUMMARY

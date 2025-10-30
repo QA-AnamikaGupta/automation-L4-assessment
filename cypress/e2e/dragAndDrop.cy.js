@@ -2,7 +2,7 @@ import HomePage from "../pages/homePage";
 import DragAndDropPage from "../pages/dragAndDropPage";
 
 describe('Verify dynamic table cases', () => {
-    const baseUrl = Cypress.env('baseUrl') || Cypress.config('baseUrl');
+    const baseUrl = Cypress.env('TEST_BASE_URL') || Cypress.config('baseUrl');
     beforeEach(() => {
 
         //Load fixture data

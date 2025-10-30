@@ -3,7 +3,7 @@ import HomePage from '../pages/homePage';
 import WebInputData from '../utils/webInputData';
 
 describe('Verify the Web input page cases', () => {
-  const baseUrl = Cypress.env('baseUrl') || Cypress.config('baseUrl');// Declare and assign outside
+  const baseUrl = Cypress.env('TEST_BASE_URL') || Cypress.config('baseUrl');
   //genrate the faker data
   const fakerData = WebInputData.fakerData();
 
