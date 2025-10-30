@@ -6,8 +6,10 @@ jobs:
   cypress-run:
     runs-on: ubuntu-latest        
     env:
-      DEV_URL: ${{ secrets.DEV_URL }}
-      DEV_API_URL: ${{ secrets.DEV_API_URL }}
+      TEST_BASE_URL: ${{ secrets.TEST_BASE_URL }}
+      TEST_API_URL: ${{ secrets.TEST_API_URL }}
+      CYPRESS_API_USERNAME: ${{secrets.CYPRESS_API_USERNAME}}
+      CYPRESS_API_PASSWORD: ${{secrets.CYPRESS_API_PASSWORD}}
 
     steps:
       - uses: actions/checkout@v4
