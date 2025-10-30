@@ -26,7 +26,7 @@ jobs:
           node-version: 18
           cache: 'npm' # ✅ speeds up installs
 
-      - name: Clear Node loader flags (fix tsx --loader error)
+      - name: Clear Node loader flags (fix tsx --loader error) #update this to address issue of tsx
         run: echo "NODE_OPTIONS=" >> $GITHUB_ENV
 
       - name: Install dependencies
