@@ -2,7 +2,7 @@ import HomePage from "../pages/homePage";
 import LoginPage from "../pages/loginPage";
 
 describe('Verify Login page cases', () => {
-const baseUrl = Cypress.env('baseUrl') || Cypress.config('baseUrl');
+const baseUrl = Cypress.env('TEST_BASE_URL') || Cypress.config('baseUrl');
     beforeEach(() => {
 
         //Load fixture data

@@ -25,3 +25,8 @@ desktop.ini
 # IDEs
 .idea/
 .vscode/
+
+# env files
+.env
+.env.*.local
+*.env

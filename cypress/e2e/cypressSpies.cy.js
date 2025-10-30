@@ -2,7 +2,7 @@ import HomePage from "../pages/homePage";
 import CypressSpiesPage from "../pages/cypressSpiesPage";
 
 describe('Verify cypress spies, stub api cases', () => {
-    const baseUrl = Cypress.env('baseUrl') || Cypress.config('baseUrl');
+    const baseUrl = Cypress.env('TEST_BASE_URL') || Cypress.config('baseUrl');
     beforeEach(() => {
 
         //Load fixture data

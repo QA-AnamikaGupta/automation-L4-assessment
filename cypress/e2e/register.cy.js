@@ -3,7 +3,7 @@ import HomePage from '../pages/homePage';
 import RegisterData from '../utils/registerData';
 
 describe('Register Functionality', () => {
-    const baseUrl = Cypress.env('baseUrl') || Cypress.config('baseUrl');
+    const baseUrl = Cypress.env('TEST_BASE_URL') || Cypress.config('baseUrl');
     
     //genrate the faker data
     const fakerRegisterdata = RegisterData.fakerRegisterData();     
