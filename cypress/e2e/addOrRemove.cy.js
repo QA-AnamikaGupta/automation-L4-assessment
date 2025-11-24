@@ -9,6 +9,7 @@ describe('Verify dynamic table cases', () => {
         cy.fixture('logindata').as('data');
         // Visit the base URL
         cy.visit('/');
+        
         //Click on webinputs try it out button from homepage
         HomePage.ClickAddRemoveElementsTryItOutButton();
         Cypress.on('uncaught:exception', (err, runnable) => {
