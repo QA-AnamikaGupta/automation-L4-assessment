@@ -20,6 +20,7 @@ describe('Verify the Web input page cases', () => {
       return false;
     });
     cy.clearAllCookies();
+    cy.clearAllLocalStorage();
     cy.url().should('eq', baseUrl + 'inputs');
 
   });
