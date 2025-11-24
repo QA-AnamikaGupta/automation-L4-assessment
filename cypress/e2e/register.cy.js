@@ -21,6 +21,7 @@ describe('Register Functionality', () => {
               return false;
             });
             cy.clearAllCookies();
+            cy.clearAllLocalStorage();
             cy.url().should('eq', baseUrl + 'register');        
     });
 
