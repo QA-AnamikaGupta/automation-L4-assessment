@@ -68,7 +68,7 @@ function checkAllPages() {
 }
 
 
-    it.only('Verify pagination next and previous buttons functionality.', () => {
+    it('Verify pagination next and previous buttons functionality.', () => {
         checkAllPages()
     });
 })
