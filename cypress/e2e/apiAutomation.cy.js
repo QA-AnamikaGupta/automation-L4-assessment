@@ -4,6 +4,7 @@ import { generateBookDetails } from '../utils/apiData';
 
 describe('API Automation Tests', () => {
 
+  const baseUrl = Cypress.env('TEST_API_URL') || Cypress.config('apiBaseUrl');
   before(() => {
       const bookDetails = generateBookDetails();
       Cypress.env('bookTitle', bookDetails.title);
