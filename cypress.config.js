@@ -8,6 +8,7 @@ module.exports = defineConfig({
     supportFile: 'cypress/support/e2e.js',
     // set baseUrl from your exported var
     baseUrl: process.env.CYPRESS_TEST_BASE_URL,
+    apiBaseUrl: process.env.CYPRESS_TEST_API_URL,
     watchForFileChanges: false,
 
     env: {
